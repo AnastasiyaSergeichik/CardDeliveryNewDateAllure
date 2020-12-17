@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
@@ -25,13 +26,17 @@ public class CardDeliveryNewDateTest {
     private final String secondDate = generateDate(7);
     private final String invalidPhone = generateInvalidPhone();
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
+    }
+
     @BeforeEach
     void setUp() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
         open("http://localhost:9999");
         form = $("[action]");
     }
-
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
